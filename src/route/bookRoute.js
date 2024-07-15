@@ -1,7 +1,7 @@
 import express from "express";
 // import authMiddleware from "../middleware/authMiddleware.js";
 import { validate } from "../middleware/validationMiddleware.js";
-import { bookValidationSchema } from "../validation/validationSchema.js";
+import { bookValidationSchema ,updatebookValidationSchema} from "../validation/validationSchema.js";
 import BookController from "../controller/BookController.js";
 
 const router = express.Router();
@@ -9,8 +9,8 @@ const router = express.Router();
 const bookController = new BookController();
 
 router.post("/create-book", validate(bookValidationSchema), bookController.createBookController);
-router.patch("/update-book", bookController.updateBookController);
-router.put("/update-book", bookController.updateBookController);
+router.patch("/update-book",validate(updatebookValidationSchema), bookController.updateBookController);
+router.put("/update-book",validate(updatebookValidationSchema), bookController.updateBookController);
 router.get("/get-all-books", bookController.getAllBookPaginatedController);
 router.patch("/status-change-book", bookController.statusChangeController);
 router.get("/book-name-check", bookController.bookNameCheckController);
